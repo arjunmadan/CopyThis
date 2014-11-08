@@ -1,0 +1,1 @@
+This is a google chrome extension that functions as a clipboard manager where the user can easily copy text/graphic from web pages and they can be viewed later along with the URL of the web page the text/graphic was copied from.
