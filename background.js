@@ -23,7 +23,7 @@ function saveInfo(info,tab) {
 chrome.contextMenus.create({
 
 	title: "Add to clipboard",
-	contexts:["all"], 
+	contexts:["image", "selection"], 
 	onclick: saveInfo
 
 });
