@@ -1,12 +1,21 @@
 {
-	"manifest_version": 2,
-	
 	"name": "CopyThis",
-	"desctiption": "This extension is used to copy text/graphic to a clipboard that can be viewed later.",
-	"version": 1.0,
-
+	"version": "1.0",
+	"manifest_version": 2,
+	"background": {
+		"scripts": ["background.js"]
+	},
 	"browser_action": {
-		"default_icon": "icon.png",
-		"default_popup": "popup.html"
+		"default_title": "CopyThis",
+		"default_popup": "popup.html",
+		"default_icon": "icon.png"
+	},
+	"permissions": [
+		"contextMenus"
+	],
+	"icons": {
+		"16": "icon-tiny.png",
+		"48": "icon.png",
+		"128": "icon.png"
 	}
 }
