@@ -3,49 +3,54 @@ clipboardURL = new Array();
 countImg = 0;
 countTxt = 0;
 //Save copied data and URL to display later.
-function saveInfo(info,tab) {
-
+function saveInfo(info,tab) 
+{
 	if(info.selectionText)
 	{
-		clipboardData[countTxt] = info.selectionText;
-		clipboardURL[countTxt] = tab.url;
 		localStorage['tURL'+countTxt] = tab.url;
 		localStorage['data'+countTxt] = info.selectionText;
-		countTxt++;
+		localStorage['tTitle'+countTxt] = tab.title; 
+		localStorage['countTxt'] = countTxt + 1;
+		countTxt = countTxt + 1;
 	}
 	else if(info.srcUrl)
 	{
-		clipboardData[countImg] = info.srcUrl;
-		clipboardURL[countImg] = tab.url;
 		localStorage['iURL'+countImg] = tab.url;
 		localStorage['img'+countImg] = info.srcUrl;
-		countImg++;
+		localStorage['iTitle'+countImg] = tab.title;
+		localStorage['countImg'] = countImg + 1;
+		countImg = countImg + 1;
 	}
-	
-	//chrome.storage.local.set({'url1':'this is a test 123'});
-	//Testing whether data is stored correctly
-	/*for(i = 0; i< count; i++)	
-	{
-		alert(clipboardData[i]);
-		alert(clipboardURL[i]);
-	}*/
 }
 
 //Create a custom button in the context menu.
 chrome.contextMenus.removeAll();
 
 chrome.contextMenus.create({
-
-
 	title: "Add to clipboard",
 	contexts:["image", "selection"], 
 	onclick: saveInfo
-
 });
 
-
 document.addEventListener('DOMContentLoaded', function () {
-
-	document.getElementById("clipboard").innerHTML="<a href='"+localStorage['tURL0']+"' target='_blank'>"+localStorage['tURL0']+"</a>";
-	//document.getElementById("clipboard").+=localStorage['data0'];
+	
+	var clipboard = document.getElementById('clipboard');
+	if(clipboard!=null)
+	{
+		popupText = "<table style='width:600px'><th style='width:300px'>Title</th><th style='width:600px'>Data</th>";
+		for(i=0; i<parseInt(localStorage['countTxt']); i++)
+		{
+			popupText += "<tr><td><a href='"+localStorage['tURL'+i]+"' target='_blank'>"+localStorage['tTitle'+i]+"</a></td>";
+			popupText += "<td>"+localStorage['data'+i]+"</td></tr>";
+			popupText += "<tr><td><hr /></td><td><hr /></td></tr>";
+		}
+		
+		for(i=0; i<parseInt(localStorage['countImg']); i++)
+		{
+			popupText += "<tr><td><a href='"+localStorage['iURL'+i]+"' target='_blank'>"+localStorage['iTitle'+i]+"</a></td>";
+			popupText += "<td><img src="+localStorage['img'+i]+"></img></td></tr>";
+			popupText += "<tr><td><hr /></td><td><hr /></td</tr>";
+		}
+		clipboard.innerHTML = popupText;
+	}
 });
