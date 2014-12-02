@@ -1,5 +1,3 @@
-clipboardData = new Array();
-clipboardURL = new Array();
 countImg = 0;
 countTxt = 0;
 //Save copied data and URL to display later.
@@ -55,8 +53,22 @@ function loaded()
 	}
 }
 
+function deleteAll()
+{
+	alert("called");
+	localStorage['countTxt'] = 0;
+	localStorage['countImg'] = 0;
+	loaded();
+}
+
 document.addEventListener('DOMContentLoaded', function () {
 	loaded();
 });	
 
+chrome.extension.onRequest.addListener(
+    function(request, sender, sendResponse){
+        if(request.msg == "startFunc") deleteAll();
+    }
+);
+ 
 
