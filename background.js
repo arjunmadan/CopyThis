@@ -32,12 +32,12 @@ chrome.contextMenus.create({
 	onclick: saveInfo
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-	
+function loaded()
+{
 	var clipboard = document.getElementById('clipboard');
 	if(clipboard!=null)
 	{
-		popupText = "<table style='width:600px'><th style='width:300px'>Title</th><th style='width:600px'>Data</th>";
+		popupText = "<table style='width:600px'><th style='width:300px'>Title</th><th style='width:600px'>Data</th><tr><td><hr /></td><td><hr /></td></tr>";
 		for(i=0; i<parseInt(localStorage['countTxt']); i++)
 		{
 			popupText += "<tr><td><a href='"+localStorage['tURL'+i]+"' target='_blank'>"+localStorage['tTitle'+i]+"</a></td>";
@@ -53,4 +53,10 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 		clipboard.innerHTML = popupText;
 	}
-});
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+	loaded();
+});	
+
+
