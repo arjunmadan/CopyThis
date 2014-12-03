@@ -1,9 +1,8 @@
 function deleteAll()
 {
-	alert("called1");
-	chrome.extension.sendRequest({ msg: "startFunc" });
+	chrome.extension.sendRequest({ msg: "delete" });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-	document.querySelector('button').addEventListener('click', deleteAll);	
+	document.querySelector('button').addEventListener('click', deleteAll);
 });	

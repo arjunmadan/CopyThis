@@ -1,6 +1,6 @@
 countImg = 0;
 countTxt = 0;
-//Save copied data and URL to display later.
+
 function saveInfo(info,tab) 
 {
 	if(info.selectionText)
@@ -20,15 +20,6 @@ function saveInfo(info,tab)
 		countImg = countImg + 1;
 	}
 }
-
-//Create a custom button in the context menu.
-chrome.contextMenus.removeAll();
-
-chrome.contextMenus.create({
-	title: "Add to clipboard",
-	contexts:["image", "selection"], 
-	onclick: saveInfo
-});
 
 function loaded()
 {
@@ -55,20 +46,28 @@ function loaded()
 
 function deleteAll()
 {
-	alert("called");
+	countTxt = 0;
+	countImg = 0;	
 	localStorage['countTxt'] = 0;
 	localStorage['countImg'] = 0;
 	loaded();
 }
 
+
 document.addEventListener('DOMContentLoaded', function () {
+
+	chrome.contextMenus.removeAll();
+	chrome.contextMenus.create({
+		title: "Add to clipboard",
+		contexts:["image", "selection"], 
+		onclick: saveInfo
+	});
+
 	loaded();
 });	
 
 chrome.extension.onRequest.addListener(
     function(request, sender, sendResponse){
-        if(request.msg == "startFunc") deleteAll();
+        if(request.msg == "delete") deleteAll();
     }
 );
- 
-
